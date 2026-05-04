@@ -1,0 +1,19 @@
+{
+  "episode_id": "demo_episode",
+  "step_index": 0,
+  "goal": "move toward the target",
+  "observation": {
+    "image_path": null,
+    "language_instruction": "move forward slowly",
+    "proprioception": {
+      "base_x": 0.0,
+      "base_yaw": 0.0
+    },
+    "timestamp": 0.0
+  },
+  "action": {
+    "target_linear_x": 0.08,
+    "target_angular_z": 0.02,
+    "discrete_hint": "forward"
+  }
+}

@@ -1,0 +1,13 @@
+droid:
+  # Keep raw DROID data outside git and pass the real path at runtime.
+  dataset_root: null
+  sample_json: data/samples/demo_droid_sample.json
+
+model:
+  policy: stub_omnivla_gnm
+  checkpoint_path: null
+
+robot:
+  safety_config: robot_code/config/safety_config.yaml
+  ros_publish_enabled: false
+  cmd_vel_topic: /cmd_vel
