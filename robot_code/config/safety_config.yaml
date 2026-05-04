@@ -1,0 +1,5 @@
+max_linear_x: 0.10
+max_angular_z: 0.30
+default_stop: true
+ros_publish_enabled: false
+
