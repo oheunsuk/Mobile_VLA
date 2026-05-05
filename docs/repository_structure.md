@@ -32,5 +32,17 @@ Run the dry flow with:
 python scripts/run_droid_offline_dry.py --sample data/samples/demo_droid_sample.json
 ```
 
+Install minimal test/runtime dependencies with:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Validate the baseline flow with:
+
+```bash
+python -m unittest discover -s robot_code/tests
+```
+
 On the robot PC, keep `ros_publish_enabled` disabled until the dry output is
 verified against the real robot's expected `/cmd_vel` limits.

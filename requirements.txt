@@ -1,9 +1,3 @@
-# Core requirements for the current repository state.
-# The offline dry-run pipeline currently uses Python standard library only.
-#
-# Install command:
-#   python -m pip install -r requirements.txt
-#
-# Notes:
-# - ROS2 packages (`rclpy`, `geometry_msgs`) are not installed via pip here.
-#   They should be provided on the robot PC through the ROS2 environment.
+pyyaml
+pytest
+numpy

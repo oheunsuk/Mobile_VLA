@@ -1,5 +1,13 @@
 from pathlib import Path
+import sys
 import unittest
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+ROBOT_SRC = PROJECT_ROOT / "robot_code" / "src"
+for import_path in (PROJECT_ROOT, ROBOT_SRC):
+    path_text = str(import_path)
+    if path_text not in sys.path:
+        sys.path.insert(0, path_text)
 
 from cmd_vel_mock import CmdVelMockConverter, clamp
 from omnivla_adapter import omnivla_action_to_cmd_vel

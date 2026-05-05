@@ -92,23 +92,47 @@ def load_droid_sample(path: str | Path) -> NormalizedDroidSample:
 
 
 def demo_droid_sample() -> NormalizedDroidSample:
-    return NormalizedDroidSample.from_mapping(
-        {
-            "episode_id": "demo_episode",
-            "step_index": 0,
-            "goal": "move toward the target",
-            "observation": {
-                "image_path": None,
-                "language_instruction": "move forward slowly",
-                "proprioception": {"base_x": 0.0, "base_yaw": 0.0},
-                "timestamp": 0.0,
-            },
-            "action": {
-                "target_linear_x": 0.08,
-                "target_angular_z": 0.02,
-                "discrete_hint": "forward",
-            },
-        }
+    payload = {
+        "episode_id": "demo_episode",
+        "step_index": 0,
+        "goal": "move toward the target",
+        "observation": {
+            "image_path": None,
+            "language_instruction": "move forward slowly",
+            "proprioception": {"base_x": 0.0, "base_yaw": 0.0},
+            "timestamp": 0.0,
+        },
+        "action": {
+            "target_linear_x": 0.08,
+            "target_angular_z": 0.02,
+            "discrete_hint": "forward",
+        },
+    }
+
+    # Prefer loading the tracked demo JSON so CLI dry-runs and code share one baseline.
+    demo_json_path = Path(__file__).resolve().parent / "samples" / "demo_droid_sample.json"
+    if demo_json_path.exists():
+        try:
+            with demo_json_path.open("r", encoding="utf-8") as handle:
+                json_payload = json.load(handle)
+            if isinstance(json_payload, Mapping):
+                payload = dict(json_payload)
+        except (OSError, json.JSONDecodeError):
+            # Keep a safe in-code fallback for malformed or unreadable demo files.
+            pass
+
+    sample = NormalizedDroidSample.from_mapping(payload)
+    return NormalizedDroidSample(
+        episode_id=sample.episode_id,
+        step_index=sample.step_index,
+        observation=sample.observation,
+        action=DroidAction(
+            target_linear_x=float(sample.action.target_linear_x),
+            target_angular_z=float(sample.action.target_angular_z),
+            discrete_hint=sample.action.discrete_hint,
+            raw=sample.action.raw,
+        ),
+        goal=sample.goal,
     )
 
 
